@@ -487,6 +487,19 @@ function game_over() {
 	modal_score_span.innerText = zeroed_number(game_vars.score, 7);
 	game_over_timestamp = Date.now();
 }
+function key_0_pressed() {
+	jump_key_pressed = true;
+	jump_key_released = false;
+	if (!game_vars.inGame && Date.now() - game_over_timestamp > 600) {
+		new_Game();
+	} else {
+		// jump
+		next_jump_sprite_index = next_jump_sprite_index === game_vars.jump_sprite_index[0] ? game_vars.jump_sprite_index[1] : game_vars.jump_sprite_index[0];
+		if (!player_on_the_ground) { return; }
+		player_on_the_ground = false;
+		player_jump();
+	}
+}
 //#endregion
 
 //#region - Event-Listeners
@@ -497,19 +510,7 @@ let player_on_the_ground = true;
 let next_jump_sprite_index = game_vars.jump_sprite_index[0];
 document.addEventListener('keydown', (event) => {
 	// If space or arrow up is pressed
-	if (jump_key_released && (event.code === 'Space' || event.code === 'ArrowUp')) {
-		jump_key_pressed = true;
-		jump_key_released = false;
-		if (!game_vars.inGame && Date.now() - game_over_timestamp > 600) {
-			new_Game();
-		} else {
-			// jump
-			next_jump_sprite_index = next_jump_sprite_index === game_vars.jump_sprite_index[0] ? game_vars.jump_sprite_index[1] : game_vars.jump_sprite_index[0];
-			if (!player_on_the_ground) { return; }
-			player_on_the_ground = false;
-			player_jump();
-		}
-	}
+	if (jump_key_released && (event.code === 'Space' || event.code === 'ArrowUp')) { key_0_pressed(); }
 });
 document.addEventListener('keyup', (event) => {
 	// If space or arrow up is pressed
@@ -517,6 +518,13 @@ document.addEventListener('keyup', (event) => {
 		jump_key_pressed = false;
 		jump_key_released = true;
 	}
+});
+document.addEventListener('touchstart', () => {
+	if (jump_key_released) { key_0_pressed(); }
+});
+document.addEventListener('touchend', () => {
+	jump_key_pressed = false;
+	jump_key_released = true;
 });
 document.getElementById("dark-mode-toggle").addEventListener('change', (event) => {
 	// save dark-mode state
