@@ -103,7 +103,7 @@ body {
 }
 
 #floor {
-    height: 2vw;
+    height: 3vh;
     width: 100vw;
     background-color: rgba(0, 128, 0, 0.282);
     border-top-style: solid;

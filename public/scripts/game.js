@@ -519,7 +519,8 @@ document.addEventListener('keyup', (event) => {
 		jump_key_released = true;
 	}
 });
-document.addEventListener('touchstart', () => {
+document.addEventListener('touchstart', (event) => {
+	event.preventDefault();
 	if (jump_key_released) { key_0_pressed(); }
 });
 document.addEventListener('touchend', () => {
