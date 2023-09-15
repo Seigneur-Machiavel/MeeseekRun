@@ -129,7 +129,7 @@ function new_rnd_cloud() {
 
 	// create img element, image source : "sprites/cloud_1.png"
 	const cloud_img = document.createElement('img');
-	cloud_img.src = 'sprites/cloud_' + cloud_list[rnd(0, cloud_list.length - 1)] + '.png';
+	cloud_img.src = 'MeeseekRun/sprites/cloud_' + cloud_list[rnd(0, cloud_list.length - 1)] + '.png';
 	cloud_img.alt = 'cloud';
 	cloud_img.style.filter = 'blur(' + blur_from_size.cloud[cloud_.size] + 'px)';
 
@@ -298,7 +298,7 @@ function load_player_sprites() {
 	const player_sprites = document.getElementById('player-sprites');
 	for (let i = 1; i <= game_vars.run_frames; i++) {
 		const player_sprite = document.createElement('img');
-		player_sprite.src = 'sprites/player/run/' + i + '.webp';
+		player_sprite.src = 'MeeseekRun/sprites/player/run/' + i + '.webp';
 		player_sprite.alt = 'player';
 		player_sprite.id = 'player-run-' + i;
 		player_sprites.appendChild(player_sprite);
@@ -306,7 +306,7 @@ function load_player_sprites() {
 
 	// TESTING GIF
 	/*const player_sprite = document.createElement('img');
-	player_sprite.src = 'sprites/player/run/anim.gif';
+	player_sprite.src = 'MeeseekRun/sprites/player/run/anim.gif';
 	player_sprite.alt = 'player run';
 	player_sprite.id = 'player-run-anim';
 	player_sprite.style.display = 'block';
