@@ -51,6 +51,7 @@ const score_span = document.getElementById('score-span');
 const sky = document.getElementById('sky');
 const floor = document.getElementById('floor');
 const obstacles_wrap = document.getElementById('obstacles-wrap');
+const player_box = document.getElementById('player-box');
 //#endregion
 
 //#region - VARIABLES
@@ -79,12 +80,12 @@ const game_vars = {
 	spikes_box_tolerance: 1, // tolerance for the spikes hitbox
 }
 const html_pos = {
-	player: {topVH: 50, leftVW: 6},
+	player: {topVH: 50, leftVW: 6, widthVW: 3},
 	holes: [],
 	spikes: []
 }
 const box_pos = {
-	player: {topVH: () => html_pos.player.topVH + 2, leftVW: () =>  html_pos.player.leftVW + 2, bottomVH: () => html_pos.player.topVH + 2 + 14, rigthVW: () => html_pos.player.leftVW + 2 + 3},
+	player: {topVH: () => html_pos.player.topVH + 2, leftVW: () =>  html_pos.player.leftVW + 2, bottomVH: () => html_pos.player.topVH + 2 + 14, rigthVW: () => html_pos.player.leftVW + 2 + html_pos.player.widthVW},
 }
 const cloud_list = [1, 2]
 const blur_from_size = {
@@ -249,7 +250,7 @@ function new_spikes() {
 	const supp = game_vars.difficulty_boost;
 	const spikes_width = rnd(game_vars.spikes_vw[0] + supp, game_vars.spikes_vw[1] + supp);
 	const spikes_height = rnd(game_vars.spikes_vh[0], game_vars.spikes_vh[1]);
-	const spikes_ = new spike(100, game_vars.ground_vh - spikes_height, spikes_width, spikes_height);
+	const spikes_ = new spike(100, game_vars.ground_vh + 0.4 - spikes_height, spikes_width, spikes_height);
 	const spikes_element = document.createElement('div');
 	spikes_element.classList.add('spikes');
 	spikes_element.style.marginTop = spikes_.y + 'vh';
@@ -472,6 +473,7 @@ function game_over() {
 	game_over_timestamp = Date.now();
 }
 function key_0_pressed() {
+	if (!jump_key_released) { return; }
 	jump_key_pressed = true;
 	jump_key_released = false;
 	if (!game_vars.inGame && Date.now() - game_over_timestamp > 600) {
@@ -483,6 +485,20 @@ function key_0_pressed() {
 		player_on_the_ground = false;
 		player_jump();
 	}
+}
+function set_player_width() {
+	const window_width = window.innerWidth
+	// a = (y2 - y1) / (x2 - x1)
+	const a = (3 - 7) / (1080 - 360);
+	// b = y1 - ax1
+	const b = 7 - a * 360;
+	// y = ax + b
+	let player_width = a * window_width + b;
+	if (player_width < 3) { player_width = 3; }
+	console.log(`player_width: ${player_width}`)
+
+	html_pos.player.widthVW = player_width;
+	player_box.style.width = player_width + 'vw';
 }
 //#endregion
 
@@ -498,7 +514,7 @@ let player_on_the_ground = true;
 let next_jump_sprite_index = game_vars.jump_sprite_index[0];
 document.addEventListener('keydown', (event) => {
 	// If space or arrow up is pressed
-	if (jump_key_released && (event.code === 'Space' || event.code === 'ArrowUp')) { key_0_pressed(); }
+	if ((event.code === 'Space' || event.code === 'ArrowUp')) { key_0_pressed(); }
 });
 document.addEventListener('keyup', (event) => {
 	// If space or arrow up is pressed
@@ -507,14 +523,15 @@ document.addEventListener('keyup', (event) => {
 		jump_key_released = true;
 	}
 });
-document.addEventListener('touchstart', (event) => {
-	event.preventDefault();
-	if (jump_key_released) { key_0_pressed(); }
+document.addEventListener('touchstart', () => {
+	key_0_pressed();
 });
-document.addEventListener('touchend', () => {
+document.addEventListener('touchend', (event) => {
+	event.preventDefault();
 	jump_key_pressed = false;
 	jump_key_released = true;
 });
+window.addEventListener('resize', function() { set_player_width(); });
 //#endregion
 
 //#region - SET SETTINGS FROM LOCALSTORAGE
@@ -524,6 +541,7 @@ if (localStorage.getItem('dark-mode') === "false") {
 }
 //#endregion ----------------------------------------------
 
-new_Game()
+set_player_width();
+new_Game();
 
 });

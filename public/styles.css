@@ -12,6 +12,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     overflow: hidden;
+    margin: 0;
 }
 
 /* PLAYGROUND */
@@ -31,6 +32,9 @@ body {
     flex-direction: column;
     opacity: 0;
     transition: opacity 0.2s ease-in-out;
+}
+#modal h1, #modal p {
+    text-align: center;
 }
 .score-wrap {
     position: fixed;
@@ -82,7 +86,7 @@ body {
     overflow: hidden;
 }
 .cloud {
-    position: absolute;
+    position: fixed;
     width: 12vw;
     left: 100vw;
     z-index: -1;
@@ -111,7 +115,7 @@ body {
     border-color: #5a5a5a;
 }
 #floor .hole {
-    position: absolute;
+    position: fixed;
     background-color: var(--background-color);
     height: 4vh;
     margin-top: -1vh;
@@ -126,7 +130,7 @@ body {
     overflow: hidden;
 }
 #obstacles-wrap .spikes {
-    position: absolute;
+    position: fixed;
     background-color: transparent;
     border-color: red;
     /*border-style: dashed;*/
@@ -163,7 +167,7 @@ body {
     width: 3vw;
     height: 14vh;
     margin-top: 2vh;
-    margin-left: 2vh;
+    margin-left: 2vw;
     border-color: #418ad7;
     /*border-style: solid;*/
     border-width: 1px;
