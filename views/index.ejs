@@ -5,33 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <link rel="icon" href="MeeseekRun/icon.webp" type="image/x-icon">
-    <link rel="stylesheet" href="/MeeseekRun/styles.css">
-    <script src="/MeeseekRun/scripts/game.js"></script>
+    <link rel="icon" href="<%= launch_folder %>/icon.webp" type="image/x-icon">
+    <link rel="stylesheet" href="<%= launch_folder %>/styles.css">
+    <script src="<%= launch_folder %>/scripts/script_1.js"></script>
 </head>
 
-<body style="margin: 0;">
-    <div id="game-container">
-      <label class="switch">
-        <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode(this)">
+<body class="dark-mode">
+    <label class="switch">
+        <input type="checkbox" id="dark-mode-toggle" onclick="toggleDarkMode(this)" checked>
         <span class="slider"></span>
-      </label>
-      <div id="land" class="land">
-        <div id="sky"></div>
-        <div id="floor" class="floor"></div>
-        <div id="obstacles-wrap" class="obstacles-wrap"></div>
-        <div id="player" class="player" style="top: 50vh;">
-          <div id="player-sprites" class="player-sprites"></div>
-          <div id="player-box" class="player-box"></div>
+    </label>
+    <div id="game-container">
+        <div id="land" class="land">
+            <div id="sky"></div>
+            <div id="floor" class="floor"></div>
+            <div id="obstacles-wrap" class="obstacles-wrap"></div>
+            <div id="player" class="player" style="top: 50vh;">
+                <div id="player-sprites" class="player-sprites"></div>
+                <div id="player-box" class="player-box"></div>
+            </div>
+    
+            <div class="score-wrap"><span id="score-span"></span></div>
+            <div id="modal" class="modal">
+                <h1>Game Over</h1>
+                <p>Your score is : <span id="modal-score-span" style="font-weight: bold;"></span></p>
+            </div>
+            <div id="success-pop"></div>
         </div>
-
-        <div class="score-wrap"><span id="score-span"></span></div>
-        <div id="modal" class="modal">
-          <h1>Game Over</h1>
-          <p>Your score is : <span id="modal-score-span" style="font-weight: bold;"></span></p>
-        </div>
-        <div id="success-pop"></div>
-      </div>
     </div>
 </body>
 
