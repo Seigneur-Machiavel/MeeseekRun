@@ -10,6 +10,7 @@ const settings = {
   t: "NzQxNzQ2NjEwNjQ0NjQwMzg4XyOg3Q5fJ9v5Kj6Y9o8z0j7z3QJYv6K3c", // admin Token
   da: false, // Disable admin token usage
   lr: true, // Log routes
+  ul: is_debug ? false : true, // Use launch folder as subdomain
 }
 const args = process.argv.slice(2);
 for (let i = 0; i < args.length; i++) {
@@ -21,6 +22,7 @@ for (let i = 0; i < args.length; i++) {
       if (key == "m") { settings.m = true; continue; }
       if (key == "ar") { settings.ar = true; continue; }
       if (key == "lr") { settings.lr = true; continue; }
+      if (key == "rd") { settings.ul = false; continue; } // [root domain] - Don't use launch folder as subdomain
 
       // Move to the next argument
       i++;
