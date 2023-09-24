@@ -2,6 +2,8 @@
 // IN VISUAL CODE YOU CAN USE Ctrl+K Ctrl+0 TO FOLD ALL CODE
 // THAT CAN BE USEFUL TO FOLD THE #REGION OF CODE
 
+const inspector = require('inspector');
+const is_debug = inspector.url() !== undefined ? true : false;
 //#region - SETTINGS - LAUNCH ARGUMENTS
 const settings = {
   p: 4321, // Port
